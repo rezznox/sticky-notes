@@ -1,0 +1,19 @@
+services:
+
+  db:
+    build: ./db
+    ports:
+      - "5432:5432"
+    env_file:
+    - .env
+    restart: always
+
+  backend:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes: [.:/usr/src/app]
+    depends_on:
+      - "db"
+    env_file:
+    - .env
